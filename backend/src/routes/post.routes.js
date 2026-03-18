@@ -19,6 +19,8 @@ postRouter.post(
 
 /**
  * GET /api/login [protected - vhi user jinke pass valid token hoga]
+ * @route GET /api/posts/
+ * @description get all the posts created  by the user that the
  */
 postRouter.get("/",identifyUser, postController.getPostController);
 
@@ -27,5 +29,26 @@ postRouter.get("/",identifyUser, postController.getPostController);
  * - return an detail about specific post with the id. also check whether the post belongs to the user that the request come from
  */
 postRouter.get("/details/:postId",identifyUser, postController.getPostDetailsController);
+
+
+/**
+ * @route POST /api/posts/like/:postid
+ * @description like a post with the id provided in the request params.
+ */
+postRouter.post("/like/:postId",identifyUser,postController.likePostController)
+
+console.log(
+  "[post.routes] loaded routes:",
+  postRouter.stack
+    .map((layer) => {
+      if (!layer.route) return null;
+      const methods = Object.keys(layer.route.methods)
+        .filter(Boolean)
+        .map((m) => m.toUpperCase())
+        .join(",");
+      return `${methods} ${layer.route.path}`;
+    })
+    .filter(Boolean),
+);
 
 module.exports = postRouter;

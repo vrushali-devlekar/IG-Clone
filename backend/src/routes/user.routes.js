@@ -29,10 +29,17 @@ fetch('http://127.0.0.1:7451/ingest/3d550d3a-ff66-418a-a277-40e39bfad48c', {
 // #endregion agent log
 
 /**
- * @route POST /api/users/follow/:userid
+ * @route POST /api/users/follow/:username
  * @description Follow a user
  * @access Private
  */
 userRouter.post("/follow/:username", identifyUser, userController.followUserController)
+
+/**
+ * @route POST /api/users/unfollow/:username
+ * @description Unfollow a user
+ * @access Private
+ */
+userRouter.post("/unfollow/:username", identifyUser, userController.unfollowUserController)
 
 module.exports = userRouter
