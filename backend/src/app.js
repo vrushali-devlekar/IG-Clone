@@ -1,10 +1,16 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
-
+const cors = require("cors")
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({
+  credentials: true,
+  // Vite dev server origin; accept both with/without trailing slash.
+  // This prevents CORS from silently failing due to `Origin` header mismatch.
+  origin: ["http://localhost:5173", "http://localhost:5173/"]
+}))
 
 // Quick request logger (helps debug "Cannot POST" issues)
 app.use((req, _res, next) => {
